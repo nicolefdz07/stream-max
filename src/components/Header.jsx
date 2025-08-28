@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-import { CiBookmark } from "react-icons/ci";
+import { CiBookmark, CiSearch } from "react-icons/ci";
+import { Link, NavLink } from "react-router-dom";
 import streamLogo from "../assets/stream-max.png";
-import { CiSearch } from "react-icons/ci";
 
 // import { FaBookmark } from "react-icons/fa"; filled
 export default function Header() {
@@ -15,10 +14,30 @@ export default function Header() {
         </div>
         <section className="header-categories">
           <nav>
-            <Link to="/">Home</Link>
-            <Link to="">Series</Link>
-            <Link to="">Movies</Link>
-            <Link to="">Kids and Family</Link>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+              to="/"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+              to="series"
+            >
+              Series
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+              to="movies"
+            >
+              Movies
+            </NavLink>
+            {/* <NavLink
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+              to=""
+            >
+              Kids and Family
+            </NavLink> */}
           </nav>
         </section>
         <section className="header-icons">

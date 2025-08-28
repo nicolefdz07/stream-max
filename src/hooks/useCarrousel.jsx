@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import {getTrendingCarrousel} from "../api";
-export default function useCarrousel(){
+ 
+export default function useCarrousel({fetchData}){
 const [carrouselItems, setCarrouselItems] = useState([])
 const [error, setError] = useState(null)
 const [loading, setLoading] = useState(true)
   
 useEffect(()=>{
-    const fetchData = async()=>{
+    const fetchDataFunction = async()=>{
       setLoading(true)
       try{
-        const data = await getTrendingCarrousel()
+        const data = await fetchData()
         setCarrouselItems(data)
       }catch(error){
         setError(error)
@@ -17,8 +17,8 @@ useEffect(()=>{
         setLoading(false)
       }
     }
-    fetchData()
-  }, [])
+    fetchDataFunction()
+  }, [fetchData])
   
   return {carrouselItems, error, loading}
 }

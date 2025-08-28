@@ -1,15 +1,16 @@
 import { useState } from "react";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import useCarrousel from "../hooks/useCarrousel";
 
-export default function Carrousel({programs, loading, error}) {
-
+export default function Carrousel({ fetchData }) {
+  const { carrouselItems, loading, error } = useCarrousel({ fetchData });
   const [current, setCurrent] = useState(0);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>There was an error</p>;
 
-  const total = programs.length;
+  const total = carrouselItems.length;
   const prevSlide = () => setCurrent((prev) => (prev - 1 + total) % total);
   const nextSlide = () => setCurrent((prev) => (prev + 1) % total);
 
@@ -23,7 +24,7 @@ export default function Carrousel({programs, loading, error}) {
         <MdKeyboardArrowLeft />
       </button>
       <div className="carrousel-wrapper">
-        {programs.map((program, idx) => (
+        {carrouselItems.map((program, idx) => (
           <div
             key={program.id}
             className={`carrousel-item${idx === current ? " active" : ""}`}

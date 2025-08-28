@@ -20,8 +20,8 @@ export default function useSliderCarrousel({ fetchData }) {
       }
       console.log(sliderPrograms)
     };
-    fetchedFeaturedPrograms()
-  }, []);
+    fetchedFeaturedPrograms();
+  }, [fetchData]);
   return {sliderPrograms, error, loading}
 
 }
