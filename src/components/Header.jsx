@@ -2,18 +2,20 @@ import { Link } from "react-router-dom";
 import { CiBookmark } from "react-icons/ci";
 import streamLogo from "../assets/stream-max.png";
 import { CiSearch } from "react-icons/ci";
-import Carrousel from "./Carrousel";
+
 // import { FaBookmark } from "react-icons/fa"; filled
 export default function Header() {
   return (
     <>
       <header>
         <div className="logo">
-          <img src={streamLogo} alt="StreamMax Logo" />
+          <Link to="/">
+            <img src={streamLogo} alt="StreamMax Logo" />
+          </Link>
         </div>
         <section className="header-categories">
           <nav>
-            <Link to="">Home</Link>
+            <Link to="/">Home</Link>
             <Link to="">Series</Link>
             <Link to="">Movies</Link>
             <Link to="">Kids and Family</Link>
@@ -30,7 +32,6 @@ export default function Header() {
           </nav>
         </section>
       </header>
-      <Carrousel />
     </>
   );
 }

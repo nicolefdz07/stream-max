@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import useCarrousel from "../hooks/useCarrousel";
 
-export default function Carrousel() {
-  const { carrouselItems, error, loading } = useCarrousel();
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+
+export default function Carrousel({programs, loading, error}) {
+
   const [current, setCurrent] = useState(0);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>There was an error</p>;
 
-  const total = carrouselItems.length;
+  const total = programs.length;
   const prevSlide = () => setCurrent((prev) => (prev - 1 + total) % total);
   const nextSlide = () => setCurrent((prev) => (prev + 1) % total);
 
@@ -23,21 +23,21 @@ export default function Carrousel() {
         <MdKeyboardArrowLeft />
       </button>
       <div className="carrousel-wrapper">
-        {carrouselItems.map((item, idx) => (
+        {programs.map((program, idx) => (
           <div
-            key={item.id}
+            key={program.id}
             className={`carrousel-item${idx === current ? " active" : ""}`}
           >
             <img
               className="carrousel-img"
               id={`slide-${idx}`}
-              src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
-              alt={item.title}
+              src={`https://image.tmdb.org/t/p/original${program.backdrop_path}`}
+              alt={program.title}
             />
             {/* info container */}
             <div className="carrousel-item-info">
-              <h2>{item.title || "Not title"}</h2>
-              <p>{item.overview}</p>
+              <h2>{program.title || "Not title"}</h2>
+              <p>{program.overview}</p>
               <div className="carrousel-buttons">
                 <button>see info</button>
                 <button>Add to list</button>

@@ -14,4 +14,15 @@ const getTrendingCarrousel = async() => {
     return []
   }
 }
-export {getTrendingCarrousel};
+const getFeaturedPrograms = async()=>{
+  const endpoint = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
+  try{
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    return data.results;
+  }catch(error){
+    console.log(error)
+    return []
+  }
+}
+export {getTrendingCarrousel,getFeaturedPrograms};
