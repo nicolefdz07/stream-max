@@ -68,34 +68,95 @@ const getFeaturedMovies = async () => {
     console.log(error);
     return [];
   }
-
 };
-const Top10Movies = async()=>{
+const Top10Movies = async () => {
   const endPoint = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
-    try {
-      const res = await fetch(endPoint);
-      const data = await res.json();
-      return data.results.splice(0,10);
-    } catch (error) {
-      console.log(error);
-      return [];
-    }
-
+  try {
+    const res = await fetch(endPoint);
+    const data = await res.json();
+    return data.results.splice(0, 10);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
-const Top10Series = async()=>{
-    const endPoint = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`;
-    try {
-      const res = await fetch(endPoint);
-      const data = await res.json();
-      return data.results.splice(0,10);
-    } catch (error) {
-      console.log(error);
-      return [];
-    }
-
+const Top10Series = async () => {
+  const endPoint = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`;
+  try {
+    const res = await fetch(endPoint);
+    const data = await res.json();
+    return data.results.splice(0, 10);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
-
-
+const NowPlaying = async () => {
+  const endPoint = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`;
+  try {
+    const res = await fetch(endPoint);
+    const data = await res.json();
+    return data.results;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+const AiringToday = async () => {
+  const endPoint = `https://api.themoviedb.org/3/tv/airing_today?api_key=${API_KEY}`;
+  try {
+    const res = await fetch(endPoint);
+    const data = await res.json();
+    return data.results;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+const getGenresMovieList = async () => {
+  const endpoint = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    return data.genres;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+const getGenresSeriesList = async () => {
+  const endpoint = `https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}`;
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    return data.genres;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+const getMoviesGenre = async(id)=>{
+  const endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=es-ES&with_genres=${id}&sort_by=popularity.desc&page=1`;
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    return data.results;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+const getSeriesGenre = async(id)=>{
+  const endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&language=es-ES&with_genres=${id}&sort_by=popularity.desc&page=1`;
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    return data.results;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
 
 export {
   getTrendingCarrousel,
@@ -105,5 +166,12 @@ export {
   getMoviesCarrousel,
   getFeaturedMovies,
   Top10Movies,
-  Top10Series
+  Top10Series,
+  NowPlaying,
+  AiringToday,
+  getGenresMovieList,
+  getGenresSeriesList,
+  getMoviesGenre,
+  getSeriesGenre
+
 };

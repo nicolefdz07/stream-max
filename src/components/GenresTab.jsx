@@ -1,14 +1,21 @@
 import { useRef } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import useSliderCarrousel from "../hooks/useSliderCarrousel";
+import useGenresList from "../hooks/useGenresList";
 
-export default function SliderCarrousel({ fetchData, title }) {
-  const { sliderPrograms, loading, error } = useSliderCarrousel({ fetchData });
+
+
+export default function GenresTab({ fetchGenres }) {
+  
+  const { genres } = useGenresList({ fetchGenres });
   const sliderRef = useRef(null);
+  const handleClick = (e) => {
+    const selectedGenre = e.currentTarget.dataset.id;
+    console.log("Selected id:", selectedGenre);
+  };
 
   const scrollLeft = () => {
     if (sliderRef.current) {
-      const amount = sliderRef.current.offsetWidth * 0.8;  
+      const amount = sliderRef.current.offsetWidth * 0.8;
       sliderRef.current.scrollBy({ left: -amount, behavior: "smooth" });
     }
   };
@@ -19,31 +26,32 @@ export default function SliderCarrousel({ fetchData, title }) {
     }
   };
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>Error al cargar</p>;
   return (
-    <div className="slider-carrousel-container">
-      <h3>{title}</h3>
+    <div className="genres-tab-wrapper">
       <button
         className="carrousel-arrow left"
         onClick={scrollLeft}
-        aria-label="Previous slide"
+        aria-label="Previous genres"
       >
         <MdKeyboardArrowLeft />
       </button>
-      <div className="slider-carrousel" ref={sliderRef}>
-        {sliderPrograms.map((program) => (
-          <div className="slider-carrousel-card" key={program.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
-            />
-          </div>
+      <div className="genres-tab" ref={sliderRef}>
+        {genres.map((genre) => (
+          <button
+            className="genre-button"
+            key={genre.id}
+            onClick={handleClick}
+            data-id={genre.id}
+            data-genre={genre.name}
+          >
+            {genre.name}
+          </button>
         ))}
       </div>
       <button
         className="carrousel-arrow right"
         onClick={scrollRight}
-        aria-label="Next slide"
+        aria-label="Next genres"
       >
         <MdKeyboardArrowRight />
       </button>
