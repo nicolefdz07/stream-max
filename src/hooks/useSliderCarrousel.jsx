@@ -18,7 +18,7 @@ export default function useSliderCarrousel({ fetchData }) {
       } finally {
         setLoading(false);
       }
-      console.log(sliderPrograms)
+      
     };
     fetchedFeaturedPrograms();
   }, [fetchData]);

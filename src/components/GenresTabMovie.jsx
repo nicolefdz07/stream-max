@@ -2,15 +2,23 @@ import { useRef } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import useGenresList from "../hooks/useGenresList";
 
+import { useContext } from "react";
+import ProgramsIdsContext from "../context/MovieGenreIdContext";
 
 
-export default function GenresTab({ fetchGenres }) {
+
+
+export default function GenresTabMovie({ fetchGenres }) {
   
   const { genres } = useGenresList({ fetchGenres });
   const sliderRef = useRef(null);
+  const {setMovieId} = useContext(ProgramsIdsContext);
+
   const handleClick = (e) => {
     const selectedGenre = e.currentTarget.dataset.id;
-    console.log("Selected id:", selectedGenre);
+    
+    setMovieId(selectedGenre);
+    console.log("Movie ID set to:", selectedGenre);
   };
 
   const scrollLeft = () => {
@@ -32,6 +40,7 @@ export default function GenresTab({ fetchGenres }) {
         className="carrousel-arrow left"
         onClick={scrollLeft}
         aria-label="Previous genres"
+        
       >
         <MdKeyboardArrowLeft />
       </button>
