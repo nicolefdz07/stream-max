@@ -14,20 +14,19 @@ import { getMoviesGenre } from "../api";
 import { useContext } from "react";
 import ProgramsIdsContext from "../context/MovieGenreIdContext";
 
-
-
 export default function MoviesPage() {
   // const {movieId} = useGetMovieId()
-  const {movieId} = useContext(ProgramsIdsContext)
-  
+  const { movieId } = useContext(ProgramsIdsContext);
+
   return (
     <>
       <Carrousel fetchData={getMoviesCarrousel} />
       <SliderCarrousel fetchData={getFeaturedMovies} title="Featured" />
       <SliderTopCarrusel fetchData={Top10Movies} title="Movies" />
-      <SliderCarrousel fetchData={NowPlaying} title="Now Playing" />
       <GenresTabMovie fetchGenres={getGenresMovieList} />
-      <GenreSliderCarrousel fetchProgramsById={getMoviesGenre} id={movieId}/>
+      <GenreSliderCarrousel fetchProgramsById={getMoviesGenre} id={movieId} />
+      <SliderCarrousel fetchData={NowPlaying} title="Now Playing" />
+      
     </>
   );
 }

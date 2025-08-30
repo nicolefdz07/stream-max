@@ -23,9 +23,11 @@ export default function SeriesPage() {
       <Carrousel fetchData={getSeriesCarrousel} />
       <SliderCarrousel fetchData={getFeaturedSeries} title="Featured" />
       <SliderTopCarrusel fetchData={Top10Series} title="Series" />
-      <SliderCarrousel fetchData={AiringToday} title="Airing Today" />
       <GenresTab fetchGenres={getGenresSeriesList} />
       <GenreSliderCarrousel fetchProgramsById={getSeriesGenre} id={serieId} />
+      <SliderCarrousel fetchData={AiringToday} title="Airing Today" />
+      
+      
     </>
   );
 }

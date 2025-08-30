@@ -157,6 +157,18 @@ const getSeriesGenre = async(id)=>{
     return [];
   }
 }
+const getProgramsResults = async()=>{
+  const endpoint = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&language=es-ES`
+  try {
+    const res = await fetch(endpoint)
+    const data = await res.json()
+    return data.results;
+  }catch(error){
+    console.log(error);
+    return [];
+  }
+
+}
 
 export {
   getTrendingCarrousel,
@@ -172,6 +184,7 @@ export {
   getGenresMovieList,
   getGenresSeriesList,
   getMoviesGenre,
-  getSeriesGenre
+  getSeriesGenre,
+  getProgramsResults
 
 };

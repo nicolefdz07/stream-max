@@ -42,7 +42,7 @@ export default function Header() {
         </section>
         <section className="header-icons">
           <nav>
-            <Link to="">
+            <Link to="search">
               <CiSearch color="white" size={32} />
             </Link>
             <Link to="">
