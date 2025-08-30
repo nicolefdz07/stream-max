@@ -157,13 +157,36 @@ const getSeriesGenre = async(id)=>{
     return [];
   }
 }
-const getProgramsResults = async()=>{
-  const endpoint = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&language=es-ES`
+const getProgramsResults = async(searchTerm)=>{
+  // const endpoint = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`
+  const endpointMovies = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`
+  const endpointSeries = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}`
   try {
-    const res = await fetch(endpoint)
-    const data = await res.json()
-    return data.results;
-  }catch(error){
+    // Realizar ambas peticiones simultáneamente
+    const [resMovies, resSeries] = await Promise.all([
+      fetch(endpointMovies),
+      fetch(endpointSeries)
+    ]);
+
+    const dataMovies = await resMovies.json();
+    const dataSeries = await resSeries.json();
+
+    
+    const movieMatch = dataMovies.results.find(movie => movie.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    const seriesMatch = dataSeries.results.find(tv => tv.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    
+    const filteredMovies = dataMovies.results.filter(movie => movie.title.toLowerCase() !== searchTerm.toLowerCase());
+    const filteredSeries = dataSeries.results.filter(tv => tv.name.toLowerCase() !== searchTerm.toLowerCase());
+
+    
+    const sortedMovies = movieMatch ? [movieMatch, ...filteredMovies] : filteredMovies;
+    const sortedSeries = seriesMatch ? [seriesMatch, ...filteredSeries] : filteredSeries;
+
+    
+    return [...sortedSeries, ...sortedMovies];
+    
+  } catch (error) {
     console.log(error);
     return [];
   }

@@ -3,6 +3,7 @@ import useSliderCarrousel from "../hooks/useSliderCarrousel";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import TopMovies from "../assets/topmovies.webp";
 import TopSeries from "../assets/topseries.webp";
+import {Spinner} from "@heroui/spinner";
 export default function SliderTopCarrusel({ fetchData, title }) {
   const { sliderPrograms, loading, error } = useSliderCarrousel({ fetchData });
   const sliderRef = useRef(null);
@@ -19,8 +20,10 @@ export default function SliderTopCarrusel({ fetchData, title }) {
       sliderRef.current.scrollBy({ left: amount, behavior: "smooth" });
     }
   };
-
-  if (loading) return <p>Cargando...</p>;
+  
+  if (loading) return (
+    <Spinner color="default" />
+  )
   if (error) return <p>Error al cargar</p>;
   return (
     <div className="slider-carrousel-container">

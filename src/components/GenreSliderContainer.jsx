@@ -1,7 +1,7 @@
 import {  useRef } from "react";
 import useGenrePrograms from "../hooks/useGenrePrograms";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-
+import {Spinner} from "@heroui/spinner";
 export default function GenreSliderCarrousel({ fetchProgramsById, id, title }) {
   const { genrePrograms, loading, error } = useGenrePrograms({
     fetchProgramsById,
@@ -25,7 +25,9 @@ export default function GenreSliderCarrousel({ fetchProgramsById, id, title }) {
     }
   };
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return (
+    <Spinner color="default" />
+  )
   if (error) return <p>Error al cargar</p>;
   
   return (

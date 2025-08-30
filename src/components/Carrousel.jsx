@@ -1,13 +1,17 @@
 import { useState } from "react";
+import {Spinner} from "@heroui/spinner";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import useCarrousel from "../hooks/useCarrousel";
+
 
 export default function Carrousel({ fetchData }) {
   const { carrouselItems, loading, error } = useCarrousel({ fetchData });
   const [current, setCurrent] = useState(0);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return (
+    <Spinner color="default" />
+  )
   if (error) return <p>There was an error</p>;
 
   const total = carrouselItems.length;
@@ -33,11 +37,11 @@ export default function Carrousel({ fetchData }) {
               className="carrousel-img"
               id={`slide-${idx}`}
               src={`https://image.tmdb.org/t/p/original${program.backdrop_path}`}
-              alt={program.title}
+              alt={program.title || program.name}
             />
             {/* info container */}
             <div className="carrousel-item-info">
-              <h2>{program.title || "Not title"}</h2>
+              <h2>{program.title || program.name || "Unknown title"}</h2>
               <p>{program.overview}</p>
               <div className="carrousel-buttons">
                 <button>see info</button>

@@ -5,8 +5,8 @@ import { ProgramsIdsProvider } from "./context/MovieGenreIdContext";
 import HomePage from "./pages/HomePage";
 import MoviesPage from "./pages/MoviesPage";
 import SeriesPage from "./pages/SeriesPage";
-import SearchPage from "./pages/SearchPage";
 import { SearchProgramsProvider } from "./context/SearchProgramsContext";
+import SearchProgramsPage from "./pages/SearchProgramsPage";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
               <Route index element={<HomePage />} />
               <Route path="series" element={<SeriesPage />} />
               <Route path="movies" element={<MoviesPage />} />
-              <Route path="search" element={<SearchPage />} />
+              <Route path="search" element={<SearchProgramsPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

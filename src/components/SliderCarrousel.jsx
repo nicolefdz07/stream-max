@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import useSliderCarrousel from "../hooks/useSliderCarrousel";
+import {Spinner} from "@heroui/spinner";
 
 export default function SliderCarrousel({ fetchData, title }) {
   const { sliderPrograms, loading, error } = useSliderCarrousel({ fetchData });
@@ -19,7 +20,9 @@ export default function SliderCarrousel({ fetchData, title }) {
     }
   };
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return (
+    <Spinner color="default" />
+  )
   if (error) return <p>Error al cargar</p>;
   return (
     <div className="slider-carrousel-container">

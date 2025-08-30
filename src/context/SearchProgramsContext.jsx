@@ -11,7 +11,7 @@ export const SearchProgramsProvider = ({children})=>{
 
   const handleChangeTerm = (e)=>{
     const newTerm = e.target.value;
-    setTerm(newTerm.trim());
+    setTerm(newTerm);
 
   }
 
@@ -20,7 +20,7 @@ export const SearchProgramsProvider = ({children})=>{
     setLoading(true);
     if (!term.trim()) return;
     try{
-      const results = await getProgramsResults();
+      const results = await getProgramsResults(term);
       setPrograms(results);
     }catch(error){
       console.log(error);
