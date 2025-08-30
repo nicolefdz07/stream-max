@@ -158,11 +158,11 @@ const getSeriesGenre = async(id)=>{
   }
 }
 const getProgramsResults = async(searchTerm)=>{
-  // const endpoint = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`
+  
   const endpointMovies = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`
   const endpointSeries = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}`
   try {
-    // Realizar ambas peticiones simultáneamente
+    
     const [resMovies, resSeries] = await Promise.all([
       fetch(endpointMovies),
       fetch(endpointSeries)
@@ -193,6 +193,21 @@ const getProgramsResults = async(searchTerm)=>{
 
 }
 
+const getProgramById = async(id, type)=>{
+  const programEndpoint = `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}`;
+  
+
+  try{
+    const res = await fetch(programEndpoint);
+    const data = await res.json();
+    return data;
+  }catch(error){
+    console.log(error);
+    return null;
+  } 
+}
+
+
 export {
   getTrendingCarrousel,
   getFeaturedPrograms,
@@ -208,6 +223,7 @@ export {
   getGenresSeriesList,
   getMoviesGenre,
   getSeriesGenre,
-  getProgramsResults
+  getProgramsResults,
+  getProgramById
 
 };

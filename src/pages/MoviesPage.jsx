@@ -21,11 +21,11 @@ export default function MoviesPage() {
   return (
     <>
       <Carrousel fetchData={getMoviesCarrousel} />
-      <SliderCarrousel fetchData={getFeaturedMovies} title="Featured" />
-      <SliderTopCarrusel fetchData={Top10Movies} title="Movies" />
+      <SliderCarrousel fetchData={getFeaturedMovies} title="Featured" type='movie' />
+      <SliderTopCarrusel fetchData={Top10Movies} title="Movies" type='movie' />
       <GenresTabMovie fetchGenres={getGenresMovieList} />
-      <GenreSliderCarrousel fetchProgramsById={getMoviesGenre} id={movieId} />
-      <SliderCarrousel fetchData={NowPlaying} title="Now Playing" />
+      <GenreSliderCarrousel fetchProgramsById={getMoviesGenre} id={movieId} type='movie'/>
+      <SliderCarrousel fetchData={NowPlaying} title="Now Playing" type='movie'/>
       
     </>
   );

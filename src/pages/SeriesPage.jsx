@@ -21,11 +21,11 @@ export default function SeriesPage() {
   return (
     <>
       <Carrousel fetchData={getSeriesCarrousel} />
-      <SliderCarrousel fetchData={getFeaturedSeries} title="Featured" />
-      <SliderTopCarrusel fetchData={Top10Series} title="Series" />
+      <SliderCarrousel fetchData={getFeaturedSeries} title="Featured" type='tv'/>
+      <SliderTopCarrusel fetchData={Top10Series} title="Series" type='tv'/>
       <GenresTab fetchGenres={getGenresSeriesList} />
-      <GenreSliderCarrousel fetchProgramsById={getSeriesGenre} id={serieId} />
-      <SliderCarrousel fetchData={AiringToday} title="Airing Today" />
+      <GenreSliderCarrousel fetchProgramsById={getSeriesGenre} id={serieId} type='tv'/>
+      <SliderCarrousel fetchData={AiringToday} title="Airing Today" type='tv'/>
       
       
     </>

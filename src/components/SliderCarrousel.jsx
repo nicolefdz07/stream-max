@@ -1,15 +1,16 @@
 import { useRef } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import useSliderCarrousel from "../hooks/useSliderCarrousel";
-import {Spinner} from "@heroui/spinner";
+import { Spinner } from "@heroui/spinner";
+import { Link } from "react-router-dom";
 
-export default function SliderCarrousel({ fetchData, title }) {
+export default function SliderCarrousel({ fetchData, title, type }) {
   const { sliderPrograms, loading, error } = useSliderCarrousel({ fetchData });
   const sliderRef = useRef(null);
 
   const scrollLeft = () => {
     if (sliderRef.current) {
-      const amount = sliderRef.current.offsetWidth * 0.8;  
+      const amount = sliderRef.current.offsetWidth * 0.8;
       sliderRef.current.scrollBy({ left: -amount, behavior: "smooth" });
     }
   };
@@ -20,9 +21,7 @@ export default function SliderCarrousel({ fetchData, title }) {
     }
   };
 
-  if (loading) return (
-    <Spinner color="default" />
-  )
+  if (loading) return <Spinner color="default" />;
   if (error) return <p>Error al cargar</p>;
   return (
     <div className="slider-carrousel-container">
@@ -34,15 +33,19 @@ export default function SliderCarrousel({ fetchData, title }) {
       >
         <MdKeyboardArrowLeft />
       </button>
+
       <div className="slider-carrousel" ref={sliderRef}>
         {sliderPrograms.map((program) => (
-          <div className="slider-carrousel-card" key={program.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
-            />
-          </div>
+          <Link to={`/program/${program.media_type || type}/${program.id}`}>
+            <div className="slider-carrousel-card" key={program.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
+              />
+            </div>
+          </Link>
         ))}
       </div>
+
       <button
         className="carrousel-arrow right"
         onClick={scrollRight}

@@ -10,8 +10,8 @@ export default function HomePage() {
     <>
       <CarrouselHome />
       <SliderCarrousel fetchData={getFeaturedPrograms} title='Featured'/>
-      <SliderTopCarrusel fetchData={Top10Movies} title="Movies" />
-      <SliderTopCarrusel fetchData={Top10Series} title="Series" />
+      <SliderTopCarrusel fetchData={Top10Movies} title="Movies" type='movie'/>
+      <SliderTopCarrusel fetchData={Top10Series} title="Series" type='tv' />
     </>
   );
 }

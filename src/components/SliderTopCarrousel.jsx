@@ -4,7 +4,8 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import TopMovies from "../assets/topmovies.webp";
 import TopSeries from "../assets/topseries.webp";
 import {Spinner} from "@heroui/spinner";
-export default function SliderTopCarrusel({ fetchData, title }) {
+import { Link } from "react-router-dom";
+export default function SliderTopCarrusel({ fetchData, title, type }) {
   const { sliderPrograms, loading, error } = useSliderCarrousel({ fetchData });
   const sliderRef = useRef(null);
 
@@ -42,11 +43,13 @@ export default function SliderTopCarrusel({ fetchData, title }) {
       </button>
       <div className="slider-carrousel" ref={sliderRef}>
         {sliderPrograms.map((program) => (
-          <div className="slider-carrousel-card" key={program.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
-            />
-          </div>
+          <Link to={`/program/${program.media_type || type}/${program.id}`} key={program.id}>
+            <div className="slider-carrousel-card">
+              <img
+                src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
+              />
+            </div>
+          </Link>
         ))}
       </div>
       <button

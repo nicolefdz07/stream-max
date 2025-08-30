@@ -2,7 +2,8 @@ import {  useRef } from "react";
 import useGenrePrograms from "../hooks/useGenrePrograms";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import {Spinner} from "@heroui/spinner";
-export default function GenreSliderCarrousel({ fetchProgramsById, id, title }) {
+import { Link } from "react-router-dom";
+export default function GenreSliderCarrousel({ fetchProgramsById, id, title, type }) {
   const { genrePrograms, loading, error } = useGenrePrograms({
     fetchProgramsById,
     id,
@@ -42,11 +43,13 @@ export default function GenreSliderCarrousel({ fetchProgramsById, id, title }) {
       </button>
       <div className="slider-carrousel" ref={sliderRef}>
         {genrePrograms.map((program) => (
-          <div className="slider-carrousel-card" key={program.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
-            />
-          </div>
+          <Link to={`/program/${program.media_type || type}/${program.id}`} key={program.id}>
+            <div className="slider-carrousel-card">
+              <img
+                src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
+              />
+            </div>
+          </Link>
         ))}
       </div>
       <button
