@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import useGenresList from "../hooks/useGenresList";
 
@@ -8,6 +8,7 @@ import ProgramsIdsContext from "../context/MovieGenreIdContext";
 
 
 export default function GenresTabSerie({ fetchGenres }) {
+  const [selectedId, setSelectedId] = useState(10759);
   const {setSerieId} = useContext(ProgramsIdsContext)
   const { genres } = useGenresList({ fetchGenres });
   const sliderRef = useRef(null);
@@ -16,6 +17,7 @@ export default function GenresTabSerie({ fetchGenres }) {
     const selectedGenre = e.currentTarget.dataset.id;
     console.log("Selected id:", selectedGenre);
     setSerieId(selectedGenre);
+    setSelectedId(selectedGenre);
   };
 
   const scrollLeft = () => {
@@ -44,7 +46,7 @@ export default function GenresTabSerie({ fetchGenres }) {
       <div className="genres-tab" ref={sliderRef}>
         {genres.map((genre) => (
           <button
-            className="genre-button"
+            className={`genre-button${String(selectedId) === String(genre.id) ? " selected" : ""}`}
             key={genre.id}
             onClick={handleClick}
             data-id={genre.id}
