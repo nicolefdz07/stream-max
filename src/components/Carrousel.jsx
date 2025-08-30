@@ -1,17 +1,15 @@
 import { useState } from "react";
-import {Spinner} from "@heroui/spinner";
+import { Spinner } from "@heroui/spinner";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import useCarrousel from "../hooks/useCarrousel";
+import { Link } from "react-router-dom";
 
-
-export default function Carrousel({ fetchData }) {
+export default function Carrousel({ fetchData, type }) {
   const { carrouselItems, loading, error } = useCarrousel({ fetchData });
   const [current, setCurrent] = useState(0);
 
-  if (loading) return (
-    <Spinner color="default" />
-  )
+  if (loading) return <Spinner color="default" />;
   if (error) return <p>There was an error</p>;
 
   const total = carrouselItems.length;
@@ -33,18 +31,24 @@ export default function Carrousel({ fetchData }) {
             key={program.id}
             className={`carrousel-item${idx === current ? " active" : ""}`}
           >
-            <img
-              className="carrousel-img"
-              id={`slide-${idx}`}
-              src={`https://image.tmdb.org/t/p/original${program.backdrop_path}`}
-              alt={program.title || program.name}
-            />
+            <Link to={`/program/${program.media_type || type}/${program.id}`}>
+              <img
+                className="carrousel-img"
+                id={`slide-${idx}`}
+                src={`https://image.tmdb.org/t/p/original${program.backdrop_path}`}
+                alt={program.title || program.name}
+              />
+            </Link>
             {/* info container */}
             <div className="carrousel-item-info">
               <h2>{program.title || program.name || "Unknown title"}</h2>
               <p>{program.overview}</p>
               <div className="carrousel-buttons">
-                <button>see info</button>
+                <Link
+                  to={`/program/${program.media_type || type}/${program.id}`}
+                >
+                  <button>see info</button>
+                </Link>
                 <button>Add to list</button>
               </div>
             </div>

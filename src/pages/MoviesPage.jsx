@@ -20,7 +20,7 @@ export default function MoviesPage() {
 
   return (
     <>
-      <Carrousel fetchData={getMoviesCarrousel} />
+      <Carrousel fetchData={getMoviesCarrousel} type='movie'/>
       <SliderCarrousel fetchData={getFeaturedMovies} title="Featured" type='movie' />
       <SliderTopCarrusel fetchData={Top10Movies} title="Movies" type='movie' />
       <GenresTabMovie fetchGenres={getGenresMovieList} />

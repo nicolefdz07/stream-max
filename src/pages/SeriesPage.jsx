@@ -20,7 +20,7 @@ export default function SeriesPage() {
   const { serieId } = useContext(ProgramsIdsContext);
   return (
     <>
-      <Carrousel fetchData={getSeriesCarrousel} />
+      <Carrousel fetchData={getSeriesCarrousel} type='tv'/>
       <SliderCarrousel fetchData={getFeaturedSeries} title="Featured" type='tv'/>
       <SliderTopCarrusel fetchData={Top10Series} title="Series" type='tv'/>
       <GenresTab fetchGenres={getGenresSeriesList} />
