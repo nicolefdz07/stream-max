@@ -136,7 +136,7 @@ const getGenresSeriesList = async () => {
   }
 };
 const getMoviesGenre = async(id)=>{
-  const endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=es-ES&with_genres=${id}&sort_by=popularity.desc&page=1`;
+  const endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${id}&sort_by=popularity.desc&page=1`;
   try {
     const res = await fetch(endpoint);
     const data = await res.json();
@@ -147,7 +147,7 @@ const getMoviesGenre = async(id)=>{
   }
 }
 const getSeriesGenre = async(id)=>{
-  const endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&language=es-ES&with_genres=${id}&sort_by=popularity.desc&page=1`;
+  const endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${id}&sort_by=popularity.desc&page=1`;
   try {
     const res = await fetch(endpoint);
     const data = await res.json();
@@ -191,7 +191,10 @@ const getProgramsResults = async(searchTerm)=>{
     return [];
   }
 
+  
+
 }
+  
 
 const getProgramById = async(id, type)=>{
   const programEndpoint = `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}`;
@@ -206,7 +209,29 @@ const getProgramById = async(id, type)=>{
     return null;
   } 
 }
+const getCast = async(id, type)=>{
+    const castEndpoint = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${API_KEY}`;
+    try {
+      const res = await fetch(castEndpoint);
+      const data = await res.json();
+      return data.cast.map(member => member.name);
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+const getGenreById = async(id, type)=>{
+    const endpoint = `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&language=es-ES`;
 
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    return data.genres.map(genre => genre.name); 
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+  }
 
 export {
   getTrendingCarrousel,
@@ -224,6 +249,8 @@ export {
   getMoviesGenre,
   getSeriesGenre,
   getProgramsResults,
-  getProgramById
+  getProgramById, 
+  getCast,
+  getGenreById
 
 };
