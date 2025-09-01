@@ -5,6 +5,8 @@ import useProgramCast from "../hooks/useProgramCast";
 import useProgramDetails from "../hooks/useProgramDetails";
 import { FaPlus } from "react-icons/fa6";
 import { BiSolidMoviePlay } from "react-icons/bi";
+import { useContext } from "react";
+import WatchListContext from "../context/WatchListContext";
 
 export default function ProgramsDetailsPage() {
   const { type, id } = useParams();
@@ -14,7 +16,7 @@ export default function ProgramsDetailsPage() {
     type
   );
   const { cast } = useProgramCast({ fetchCast: getCast, id, type });
-  
+  const { addProgram, removeProgram } = useContext(WatchListContext);
 
   // console.log('genres: ', genres);
   console.log("cast: ", cast);
@@ -47,15 +49,18 @@ export default function ProgramsDetailsPage() {
               )}
           </div>
           <div className="program-actions">
-            <button>< FaPlus /></button>
-            <button><BiSolidMoviePlay /></button>
+            <button onClick={() => addProgram(programDetails)}>
+              <FaPlus />
+            </button>
+            <button onClick={() => removeProgram(programDetails)}>
+              <BiSolidMoviePlay />
+            </button>
           </div>
           <div className="program-overview">
             <p>{programDetails.genres[0].name}</p>
             <p>{programDetails.overview}</p>
           </div>
         </div>
-  
       </div>
     )
   );

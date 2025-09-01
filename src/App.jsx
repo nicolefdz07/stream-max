@@ -8,26 +8,29 @@ import MoviesPage from "./pages/MoviesPage";
 import ProgramsDetailsPage from "./pages/ProgramsDetailsPage";
 import SearchProgramsPage from "./pages/SearchProgramsPage";
 import SeriesPage from "./pages/SeriesPage";
+import { WatchListProvider } from "./context/WatchListContext";
 
 function App() {
   return (
     <SearchProgramsProvider>
-      <ProgramsIdsProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path="series" element={<SeriesPage />} />
-              <Route path="movies" element={<MoviesPage />} />
-              <Route path="search" element={<SearchProgramsPage />} />
-              <Route
-                path="program/:type/:id"
-                element={<ProgramsDetailsPage />}
-              />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ProgramsIdsProvider>
+      <WatchListProvider>
+        <ProgramsIdsProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<HomePage />} />
+                <Route path="series" element={<SeriesPage />} />
+                <Route path="movies" element={<MoviesPage />} />
+                <Route path="search" element={<SearchProgramsPage />} />
+                <Route
+                  path="program/:type/:id"
+                  element={<ProgramsDetailsPage />}
+                />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </ProgramsIdsProvider>
+      </WatchListProvider>
     </SearchProgramsProvider>
   );
 }

@@ -36,8 +36,8 @@ export default function SliderCarrousel({ fetchData, title, type }) {
 
       <div className="slider-carrousel" ref={sliderRef}>
         {sliderPrograms.map((program) => (
-          <Link to={`/program/${program.media_type || type}/${program.id}`}>
-            <div className="slider-carrousel-card" key={program.id}>
+          <Link to={`/program/${program.media_type || type}/${program.id}`} key={program.id}>
+            <div className="slider-carrousel-card">
               <img
                 src={`https://image.tmdb.org/t/p/w500${program.poster_path}`}
               />
