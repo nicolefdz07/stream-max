@@ -3,6 +3,7 @@ import WatchListContext from "../context/WatchListContext";
 import { useContext } from "react";
 import { TiDelete } from "react-icons/ti";
 
+
 export default function WatchlistPage() {
   const { myWatchList, removeProgram } = useContext(WatchListContext);
 

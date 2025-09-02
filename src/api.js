@@ -171,15 +171,24 @@ const getProgramsResults = async(searchTerm)=>{
     const dataMovies = await resMovies.json();
     const dataSeries = await resSeries.json();
 
-    
-    const movieMatch = dataMovies.results.find(movie => movie.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    const seriesMatch = dataSeries.results.find(tv => tv.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    // agrgado el type a cada resultado
+    const moviesWithType  = dataMovies.results.map(movie=> ({
+      ...movie,
+      type: 'movie'
+    }))
 
-    
-    const filteredMovies = dataMovies.results.filter(movie => movie.title.toLowerCase() !== searchTerm.toLowerCase());
-    const filteredSeries = dataSeries.results.filter(tv => tv.name.toLowerCase() !== searchTerm.toLowerCase());
+    const seriesWithType = dataSeries.results.map(tv=> ({
+      ...tv,
+      type: 'tv'
+    }));
 
-    
+    const movieMatch = moviesWithType.find(movie => movie.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    const seriesMatch = seriesWithType.find(tv => tv.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+
+    const filteredMovies = moviesWithType.filter(movie => movie.title.toLowerCase() !== searchTerm.toLowerCase());
+    const filteredSeries = seriesWithType.filter(tv => tv.name.toLowerCase() !== searchTerm.toLowerCase());
+
     const sortedMovies = movieMatch ? [movieMatch, ...filteredMovies] : filteredMovies;
     const sortedSeries = seriesMatch ? [seriesMatch, ...filteredSeries] : filteredSeries;
 

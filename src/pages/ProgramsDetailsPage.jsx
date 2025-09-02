@@ -1,12 +1,12 @@
 import { Spinner } from "@heroui/spinner";
+import { useContext } from "react";
+import { BiSolidMoviePlay } from "react-icons/bi";
+import { FaCheck, FaPlus } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { getCast, getProgramById } from "../api";
+import WatchListContext from "../context/WatchListContext";
 import useProgramCast from "../hooks/useProgramCast";
 import useProgramDetails from "../hooks/useProgramDetails";
-import { FaPlus } from "react-icons/fa6";
-import { BiSolidMoviePlay } from "react-icons/bi";
-import { useContext } from "react";
-import WatchListContext from "../context/WatchListContext";
 
 export default function ProgramsDetailsPage() {
   const { type, id } = useParams();
@@ -16,11 +16,14 @@ export default function ProgramsDetailsPage() {
     type
   );
   const { cast } = useProgramCast({ fetchCast: getCast, id, type });
-  const { addProgram, removeProgram } = useContext(WatchListContext);
+  const { addProgram, removeProgram, myWatchList } =
+    useContext(WatchListContext);
+  const isInList = programDetails
+    ? myWatchList.some(
+        (item) => item.id === programDetails.id && item.type === type
+      )
+    : false;
 
-   
-  console.log("cast: ", cast);
-  // console.log("programDetails: ", programDetails);
 
   if (loading) {
     return <Spinner color="default" />;
@@ -49,16 +52,26 @@ export default function ProgramsDetailsPage() {
               )}
           </div>
           <div className="program-actions">
-            <button onClick={() => addProgram({...programDetails, type})}>
-              <FaPlus />
+            <button className="program-detail-btn"
+              onClick={
+                isInList
+                  ? () => removeProgram(programDetails)
+                  : () => addProgram({ ...programDetails, type })
+              }
+            >
+              <span className="icon">{isInList ? <FaCheck /> : <FaPlus />}</span>
             </button>
-            <button onClick={() => removeProgram({...programDetails, type})}>
+            <button onClick={() =>{}}>
               <BiSolidMoviePlay />
             </button>
           </div>
           <div className="program-overview">
             <p>{programDetails.genres[0].name}</p>
             <p>{programDetails.overview}</p>
+          </div>
+          <div className="program-cast">
+            <h3>Starring</h3>
+            <p>{cast.join(", ")}.</p>
           </div>
         </div>
       </div>

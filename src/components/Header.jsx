@@ -1,9 +1,12 @@
 import { CiBookmark, CiSearch } from "react-icons/ci";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import streamLogo from "../assets/stream-max.png";
+import { FaBookmark } from "react-icons/fa";
 
 // import { FaBookmark } from "react-icons/fa"; filled
 export default function Header() {
+  const location = useLocation();
+  const isWatchlistPage = location.pathname === '/Watchlist';
   return (
     <>
       <header>
@@ -32,12 +35,6 @@ export default function Header() {
             >
               Movies
             </NavLink>
-            {/* <NavLink
-              className={({ isActive }) => (isActive ? "active-link" : "")}
-              to=""
-            >
-              Kids and Family
-            </NavLink> */}
           </nav>
         </section>
         <section className="header-icons">
@@ -46,7 +43,7 @@ export default function Header() {
               <CiSearch color="white" size={32} />
             </Link>
             <Link to="Watchlist">
-              <CiBookmark color="white" size={32} />
+              {isWatchlistPage ? <FaBookmark color="white" size={32} /> : <CiBookmark color="white" size={32} />}
             </Link>
           </nav>
         </section>
