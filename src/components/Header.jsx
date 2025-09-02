@@ -45,7 +45,7 @@ export default function Header() {
             <Link to="search">
               <CiSearch color="white" size={32} />
             </Link>
-            <Link to="">
+            <Link to="Watchlist">
               <CiBookmark color="white" size={32} />
             </Link>
           </nav>

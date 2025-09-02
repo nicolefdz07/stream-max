@@ -18,9 +18,9 @@ export default function ProgramsDetailsPage() {
   const { cast } = useProgramCast({ fetchCast: getCast, id, type });
   const { addProgram, removeProgram } = useContext(WatchListContext);
 
-  // console.log('genres: ', genres);
+   
   console.log("cast: ", cast);
-  console.log("programDetails: ", programDetails);
+  // console.log("programDetails: ", programDetails);
 
   if (loading) {
     return <Spinner color="default" />;
@@ -49,10 +49,10 @@ export default function ProgramsDetailsPage() {
               )}
           </div>
           <div className="program-actions">
-            <button onClick={() => addProgram(programDetails)}>
+            <button onClick={() => addProgram({...programDetails, type})}>
               <FaPlus />
             </button>
-            <button onClick={() => removeProgram(programDetails)}>
+            <button onClick={() => removeProgram({...programDetails, type})}>
               <BiSolidMoviePlay />
             </button>
           </div>

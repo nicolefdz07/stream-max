@@ -9,6 +9,7 @@ import ProgramsDetailsPage from "./pages/ProgramsDetailsPage";
 import SearchProgramsPage from "./pages/SearchProgramsPage";
 import SeriesPage from "./pages/SeriesPage";
 import { WatchListProvider } from "./context/WatchListContext";
+import WatchlistPage from "./pages/WatchListPage";
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
                   path="program/:type/:id"
                   element={<ProgramsDetailsPage />}
                 />
+                <Route path='Watchlist' element={<WatchlistPage />} />
               </Route>
+              
             </Routes>
           </BrowserRouter>
         </ProgramsIdsProvider>
