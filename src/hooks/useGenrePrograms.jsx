@@ -21,9 +21,7 @@ export default function useGenrePrograms({ fetchProgramsById, id }) {
   }, [fetchProgramsById, id]);
 
   
-  useEffect(() => {
-    console.log("genrePrograms:", genrePrograms);
-  }, [genrePrograms]);
+  
 
   return { genrePrograms, error, loading };
 }

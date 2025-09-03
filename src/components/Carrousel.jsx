@@ -12,7 +12,11 @@ export default function Carrousel({ fetchData, type }) {
   const [current, setCurrent] = useState(0);
   const { addProgram, myWatchList, removeProgram } = useContext(WatchListContext);
 
-  if (loading) return <Spinner color="default" />;
+  if (loading) {
+  console.log("LOADING TRUE");
+  return <Spinner color="default" />;
+}
+
   if (error) return <p>There was an error</p>;
 
   const total = carrouselItems.length;

@@ -17,6 +17,7 @@ useEffect(()=>{
         setLoading(false)
       }
     }
+     
     fetchDataFunction()
   }, [fetchData])
   

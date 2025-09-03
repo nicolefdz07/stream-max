@@ -10,7 +10,6 @@ export default function useTrailerUrl ({fetchUrl, id, type}){
       try{
         const data = await fetchUrl(id, type)
         setUrl(data)
-        console.log("Trailer URL fetched:", data);
       }catch(error){
         setError(error)
       }finally{

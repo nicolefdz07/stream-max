@@ -1,4 +1,4 @@
-import { data } from "autoprefixer";
+
 import { useEffect, useState } from "react";
 
 export default function useGenresList({fetchGenres}){
@@ -15,7 +15,6 @@ export default function useGenresList({fetchGenres}){
         setError(error);
       } finally {
         setLoading(false);
-        console.log('genres list', data);
       }
     }
 
