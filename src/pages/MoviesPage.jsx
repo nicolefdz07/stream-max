@@ -15,7 +15,7 @@ import { useContext } from "react";
 import ProgramsIdsContext from "../context/MovieGenreIdContext";
 
 export default function MoviesPage() {
-  // const {movieId} = useGetMovieId()
+  
   const { movieId } = useContext(ProgramsIdsContext);
 
   return (

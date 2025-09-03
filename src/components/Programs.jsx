@@ -21,7 +21,7 @@ export default function Programs() {
               <div className="program-info">
                 <h4>{program.name || program.title || "Unknown Title"}</h4>
                 <span className="age-rating">
-                  {program.adult === "false" ? "13+" : "18+"}
+                  {program.adult === false ? "13+" : "18+"}
                 </span>
                 <span>
                   {program.release_date || program.first_air_date

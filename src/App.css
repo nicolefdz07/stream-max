@@ -10,6 +10,10 @@ body {
   background: linear-gradient(to bottom, #0d1111, #000000);
   font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
+a{
+  text-decoration: none;
+  color: inherit;
+}
 
 /* HEADER SECTION */
 header {
@@ -145,6 +149,13 @@ header {
 }
 .program-actions .program-detail-btn:active .icon {
   transform: rotate(180deg);
+}
+.trailer-btn svg {
+  transition: transform 0.5s;
+}
+
+.trailer-btn:active svg {
+  transform: rotate(360deg) scale(1.2);
 }
 
 .mylist-btn span,

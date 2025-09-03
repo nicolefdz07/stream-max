@@ -135,7 +135,7 @@ const getGenresSeriesList = async () => {
     return [];
   }
 };
-const getMoviesGenre = async(id)=>{
+const getMoviesGenre = async (id) => {
   const endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${id}&sort_by=popularity.desc&page=1`;
   try {
     const res = await fetch(endpoint);
@@ -145,8 +145,8 @@ const getMoviesGenre = async(id)=>{
     console.log(error);
     return [];
   }
-}
-const getSeriesGenre = async(id)=>{
+};
+const getSeriesGenre = async (id) => {
   const endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${id}&sort_by=popularity.desc&page=1`;
   try {
     const res = await fetch(endpoint);
@@ -156,110 +156,117 @@ const getSeriesGenre = async(id)=>{
     console.log(error);
     return [];
   }
-}
-const getProgramsResults = async(searchTerm)=>{
-  
-  const endpointMovies = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`
-  const endpointSeries = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}`
+};
+const getProgramsResults = async (searchTerm) => {
+  const endpointMovies = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchTerm)}`;
+
+  const endpointSeries = `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(searchTerm)}`;
+
   try {
-    
     const [resMovies, resSeries] = await Promise.all([
       fetch(endpointMovies),
-      fetch(endpointSeries)
+      fetch(endpointSeries),
     ]);
 
     const dataMovies = await resMovies.json();
     const dataSeries = await resSeries.json();
 
-    // agrgado el type a cada resultado
-    const moviesWithType  = dataMovies.results.map(movie=> ({
+    
+    const moviesWithType = dataMovies.results.map((movie) => ({
       ...movie,
-      type: 'movie'
-    }))
-
-    const seriesWithType = dataSeries.results.map(tv=> ({
+      type: "movie",
+    }));
+    const seriesWithType = dataSeries.results.map((tv) => ({
       ...tv,
-      type: 'tv'
+      type: "tv",
     }));
 
-    const movieMatch = moviesWithType.find(movie => movie.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    const seriesMatch = seriesWithType.find(tv => tv.name.toLowerCase().includes(searchTerm.toLowerCase()));
-
-
-    const filteredMovies = moviesWithType.filter(movie => movie.title.toLowerCase() !== searchTerm.toLowerCase());
-    const filteredSeries = seriesWithType.filter(tv => tv.name.toLowerCase() !== searchTerm.toLowerCase());
-
-    const sortedMovies = movieMatch ? [movieMatch, ...filteredMovies] : filteredMovies;
-    const sortedSeries = seriesMatch ? [seriesMatch, ...filteredSeries] : filteredSeries;
-
     
-    return [...sortedSeries, ...sortedMovies];
-    
+    return [...seriesWithType, ...moviesWithType];
   } catch (error) {
     console.log(error);
     return [];
   }
+};
 
-  
-
-}
-  
-
-const getProgramById = async(id, type)=>{
+const getProgramById = async (id, type) => {
   const programEndpoint = `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}`;
-  
 
-  try{
+  try {
     const res = await fetch(programEndpoint);
     const data = await res.json();
     return data;
-  }catch(error){
+  } catch (error) {
     console.log(error);
     return null;
-  } 
-}
-const getCast = async(id, type)=>{
-    const castEndpoint = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${API_KEY}`;
-    try {
-      const res = await fetch(castEndpoint);
-      const data = await res.json();
-      return data.cast.map(member => member.name);
-    } catch (error) {
-      console.log(error);
-      return [];
-    }
   }
-const getGenreById = async(id, type)=>{
-    const endpoint = `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&language=es-ES`;
+};
+const getCast = async (id, type) => {
+  const castEndpoint = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${API_KEY}`;
+  try {
+    const res = await fetch(castEndpoint);
+    const data = await res.json();
+    return data.cast.map((member) => member.name);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+const getGenreById = async (id, type) => {
+  const endpoint = `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&language=es-ES`;
 
   try {
     const res = await fetch(endpoint);
     const data = await res.json();
-    return data.genres.map(genre => genre.name); 
+    return data.genres.map((genre) => genre.name);
   } catch (error) {
     console.log(error);
     return [];
   }
+};
+const getTrailerUrl = async (id, type) => {
+  const endpoint = `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${API_KEY}`;
+
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    console.log("Trailer API response:", data);
+
+    if (!data.results || data.results.length === 0) {
+      return null;
+    }
+    const trailer = data.results.find(
+      (vid) => vid.type === "Trailer" && vid.site === "YouTube"
+    );
+
+    if (!trailer) return null;
+
+    const link = `https://www.youtube.com/watch?v=${trailer.key}`;
+    return link;
+  } catch (error) {
+    console.log("Trailer fetch error:", error);
+    return null;
   }
+};
 
 export {
-  getTrendingCarrousel,
-  getFeaturedPrograms,
-  getSeriesCarrousel,
-  getFeaturedSeries,
-  getMoviesCarrousel,
-  getFeaturedMovies,
-  Top10Movies,
-  Top10Series,
-  NowPlaying,
   AiringToday,
+  getCast,
+  getFeaturedMovies,
+  getFeaturedPrograms,
+  getFeaturedSeries,
+  getGenreById,
   getGenresMovieList,
   getGenresSeriesList,
+  getMoviesCarrousel,
   getMoviesGenre,
-  getSeriesGenre,
+  getProgramById,
   getProgramsResults,
-  getProgramById, 
-  getCast,
-  getGenreById
-
+  getSeriesCarrousel,
+  getSeriesGenre,
+  getTrailerUrl,
+  getTrendingCarrousel,
+  NowPlaying,
+  Top10Movies,
+  Top10Series,
 };

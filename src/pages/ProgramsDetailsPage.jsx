@@ -7,6 +7,8 @@ import { getCast, getProgramById } from "../api";
 import WatchListContext from "../context/WatchListContext";
 import useProgramCast from "../hooks/useProgramCast";
 import useProgramDetails from "../hooks/useProgramDetails";
+import { getTrailerUrl } from "../api";
+import useTrailerUrl from "../hooks/useTrailerUrl";
 
 export default function ProgramsDetailsPage() {
   const { type, id } = useParams();
@@ -15,6 +17,7 @@ export default function ProgramsDetailsPage() {
     id,
     type
   );
+  const { url } = useTrailerUrl({ fetchUrl: getTrailerUrl, id, type });
   const { cast } = useProgramCast({ fetchCast: getCast, id, type });
   const { addProgram, removeProgram, myWatchList } =
     useContext(WatchListContext);
@@ -24,6 +27,14 @@ export default function ProgramsDetailsPage() {
       )
     : false;
 
+  const handlePlayTrailer = () => {
+    if (url) {
+      window.open(url, "_blank");
+    } else {
+      
+      console.log('url is',url);
+    }
+  };
 
   if (loading) {
     return <Spinner color="default" />;
@@ -52,16 +63,20 @@ export default function ProgramsDetailsPage() {
               )}
           </div>
           <div className="program-actions">
-            <button className="program-detail-btn"
+            <button
+              className="program-detail-btn"
               onClick={
                 isInList
                   ? () => removeProgram(programDetails)
                   : () => addProgram({ ...programDetails, type })
               }
             >
-              <span className="icon">{isInList ? <FaCheck /> : <FaPlus />}</span>
+              <span className="icon">
+                {isInList ? <FaCheck /> : <FaPlus />}
+              </span>
             </button>
-            <button onClick={() =>{}}>
+            <button className="trailer-btn"
+             onClick={handlePlayTrailer} >
               <BiSolidMoviePlay />
             </button>
           </div>

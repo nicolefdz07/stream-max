@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { getProgramsResults } from "../api";
 
 const SearchProgramsContext = createContext()
@@ -9,26 +9,34 @@ export const SearchProgramsProvider = ({children})=>{
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleChangeTerm = (e)=>{
-    const newTerm = e.target.value;
-    setTerm(newTerm);
+  
 
-  }
-
-  const fetchPrograms = async(e)=>{
-    e.preventDefault();
+   const fetchPrograms = async (searchTerm) => {
+    if (!searchTerm.trim()) return;
     setLoading(true);
-    if (!term.trim()) return;
-    try{
-      const results = await getProgramsResults(term);
+    try {
+      const results = await getProgramsResults(searchTerm);
       setPrograms(results);
-    }catch(error){
-      console.log(error);
+    } catch (err) {
+      console.error(err);
       setError("Error fetching programs");
-    }finally{
+    } finally {
       setLoading(false);
     }
-  }
+  };
+  // debounce 500ms
+  useEffect(() => {
+    if (!term.trim()) {
+      setPrograms([]);
+      return;
+    }
+
+    const handler = setTimeout(() => {
+      fetchPrograms(term);
+    }, 500); 
+
+    return () => clearTimeout(handler); 
+  }, [term]);
 
   const clearSearch = () => {
     setTerm("");
@@ -38,7 +46,7 @@ export const SearchProgramsProvider = ({children})=>{
 
   const searchProgramsCtx = {
     term,
-    handleChangeTerm,
+    setTerm,
     fetchPrograms,
     programs,
     loading, 
