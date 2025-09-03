@@ -5,9 +5,9 @@ Permite explorar películas y series, ver detalles, buscar, y guardar tus favori
 
 ## 🚀 Demo
 
-[Ver demo en vivo](https://tudemo.vercel.app)
+[Ver demo en vivo](https://stream-max.netlify.app/)
 
-![screenshot](./screenshot.png)
+![screenshot](./src/assets/screenshot.png)
 
 ## ✨ Características
 
@@ -16,7 +16,7 @@ Permite explorar películas y series, ver detalles, buscar, y guardar tus favori
 - Búsqueda por nombre
 - Añade/quita programas a tu Watchlist (contexto global)
 - Navegación dinámica con React Router
-- Carga y manejo de errores  
+- Carga y manejo de errores
 - Diseño responsive
 
 ## 🛠️ Tecnologías
@@ -28,10 +28,21 @@ Permite explorar películas y series, ver detalles, buscar, y guardar tus favori
 - CSS
 - React Icons
 
-## ⚡ Instalación
+## 🔑 Configuración de la API Key
+
+Este proyecto requiere una API key de [TMDB](https://www.themoviedb.org/documentation/api) para funcionar.
+
+1. Regístrate y obtén tu API key en TMDB.
+2. Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+
+```
+VITE_API_KEY=tu_api_key_aqui
+```
+
+3. Luego ejecuta los siguientes comandos:
 
 ```bash
-git clone https://github.com/tuusuario/stream-max.git
+git clone https://github.com/nicolefdz07/stream-max
 cd stream-max
 npm install
 npm run dev
@@ -39,5 +50,4 @@ npm run dev
 
 ## 📝 Licencia
 
-Este proyecto está bajo la Licencia MIT.  
- 
+Este proyecto está bajo la Licencia MIT.
